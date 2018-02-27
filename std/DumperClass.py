@@ -10,7 +10,7 @@ class Dumper(object):
     def __init__(self):
         self._api = twitter_api()
         self._data_path = '../data'
-        self._csv_name = None
+        self._csv_name = 'twitter_dump'
         self._query = ' '
         self._retweets = False
         self._today = datetime.today().date()
@@ -31,8 +31,6 @@ class Dumper(object):
 
     @property
     def csv_name(self):
-        if self._csv_name is None:
-            self.csv_name = self.today.__str__()
         return self._csv_name
 
     @csv_name.setter
@@ -76,7 +74,7 @@ class Dumper(object):
             for tweet in full_tweets:
                 tweets.append(self.tweet_handler(tweet))
 
-        with open(f'{self.data_path}/{self.csv_name}.csv', 'w') as f:
+        with open(f'{self.data_path}/{self.csv_name}_{day_before.__str__()}.csv', 'w') as f:
             dump = csv.writer(f)
             dump.writerow(self._cols)
             dump.writerows(tweets)
