@@ -32,7 +32,7 @@ class Dumper(object):
     @property
     def csv_name(self):
         if self._csv_name is None:
-            self.csv_name = f'{self.today.__str__()}.csv'
+            self.csv_name = self.today.__str__()
         return self._csv_name
 
     @csv_name.setter
