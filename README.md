@@ -31,6 +31,18 @@ Few more options
 Good to Know...
 ---
 
+For now the default is to scrape only Hebrew tweets.
+To scrape other languages:
+~~~
+# any
+dump.lang = None
+
+# only English
+dump.lang = 'en'
+
+# And so on...
+~~~
+
 TODO
 ---
 - [ ] finish readme

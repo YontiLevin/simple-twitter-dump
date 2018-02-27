@@ -10,7 +10,7 @@ import os
 class Dumper(object):
     def __init__(self):
         self._api = twitter_api()
-        self._data_path = '../data'
+        self._data_path = 'data'
         self._csv_name = 'twitter_dump'
         self._query = ' '
         self._retweets = False
@@ -54,6 +54,14 @@ class Dumper(object):
             print('Invalid query! - must be a string')
 
     @property
+    def lang(self):
+        return self._lang
+
+    @lang.setter
+    def lang(self, new_lang):
+        self._lang = new_lang
+
+    @property
     def today(self):
         return self._today
 
@@ -86,7 +94,7 @@ class Dumper(object):
         waiting_counter = 15
         while True:
             try:
-                if self._lang:
+                if self.lang:
                     results = self.api.search(q=self.query,
                                               lang=self._lang,
                                               locale=self._lang,
