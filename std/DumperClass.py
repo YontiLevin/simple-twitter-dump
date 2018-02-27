@@ -4,6 +4,7 @@ from .api_setup import twitter_api, RateLimitErrorExecption
 from time import sleep
 import csv
 from tqdm import tqdm
+import os
 
 
 class Dumper(object):
@@ -74,6 +75,7 @@ class Dumper(object):
             for tweet in full_tweets:
                 tweets.append(self.tweet_handler(tweet))
 
+        os.makedirs(self.data_path, exist_ok=True)
         with open(f'{self.data_path}/{self.csv_name}_{day_before.__str__()}.csv', 'w') as f:
             dump = csv.writer(f)
             dump.writerow(self._cols)
@@ -131,5 +133,6 @@ class Dumper(object):
         return basic_info.values()
 
 
-
-
+if __name__ == '__main__':
+    dumper = Dumper()
+    dumper.loop_over_last_n_days(5)
