@@ -1,5 +1,5 @@
 from tweepy import OAuthHandler, API, RateLimitError
-from .twitter_credentials import *
+from std.twitter_credentials import *
 
 
 def twitter_api():

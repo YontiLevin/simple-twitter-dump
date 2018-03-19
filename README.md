@@ -21,7 +21,9 @@ As simple as possible
   ~~~
   >>> from std import Dumper
   >>> dump = Dumper()
-  >>> dump.loop_over_last_n_days(n=10)
+  >>> dump.scrape_last_n_days(n=10)
+  or
+  >>> dump.scrape_date('2018-03-15')
   ~~~
 3. Results will be saved to csv files (1 per day) in your the data folder
 

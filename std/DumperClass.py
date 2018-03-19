@@ -1,10 +1,11 @@
 # IMPORTS
 from datetime import datetime, timedelta
-from .api_setup import twitter_api, RateLimitErrorExecption
+from std.api_setup import twitter_api, RateLimitErrorExecption
 from time import sleep
 import csv
 from tqdm import tqdm
 import os
+from sys import exit
 
 
 class Dumper(object):
@@ -66,30 +67,32 @@ class Dumper(object):
         return self._today
 
     # METHODS
-    def loop_over_last_n_days(self, n=10):
+    def scrape_last_n_days(self, n=10):
         if n > 10:
             print('Can Only Scrape Up To 10 Days Back')
-        for delta in range(n-1, -2, -1):
+        for delta in range(n, -1, -1):
             day_to_scrape = self.today - timedelta(delta)
-            day_before = self.today - timedelta(delta) - timedelta(1)
-            self.scrape_full_day(day_to_scrape, day_before)
+            self.scrape_date(day_to_scrape)
 
-    def scrape_full_day(self, day_date, day_before):
+    def scrape_date(self, date_2_scrape):
+        if type(date_2_scrape) is str:
+            try:
+                date_2_scrape = datetime.strptime(date_2_scrape, '%Y-%m-%d').date()
+            except:
+                print('Bad Date Format\nPlease enter Y-M-D\ni.e, 2018-03-15')
+                exit(1)
+        next_day = date_2_scrape + timedelta(1)
         tweets = []
-        print(f'Starting to scrape {day_before.__str__()} ...')
-        search_iterator = tqdm(self.search_handle(day_date, day_before))
+        print(f'Starting to scrape {date_2_scrape.__str__()} ...')
+        search_iterator = tqdm(self.search_handle(date_2_scrape, next_day))
         for full_tweets, current_date in search_iterator:
             search_iterator.set_description(current_date)
             for tweet in full_tweets:
                 tweets.append(self.tweet_handler(tweet))
 
-        os.makedirs(self.data_path, exist_ok=True)
-        with open(f'{self.data_path}/{self.csv_name}_{day_before.__str__()}.csv', 'w') as f:
-            dump = csv.writer(f)
-            dump.writerow(self._cols)
-            dump.writerows(tweets)
+        self.dump2csv(tweets, date_2_scrape)
 
-    def search_handle(self, max_date, min_date):
+    def search_handle(self, min_date, max_date):
         max_id = None
         waiting_counter = 15
         while True:
@@ -138,9 +141,34 @@ class Dumper(object):
                       'user_name': tweet.user.name,
                       'user_screen_name': tweet.user.screen_name,
                       'user_id': tweet.user.id}
-        return basic_info.values()
+        return list(basic_info.values())
 
+    def dump2csv(self, tweets, day_before):
+        os.makedirs(self.data_path, exist_ok=True)
+        file_name = f'{self.data_path}/{self.csv_name}_{day_before.__str__()}.csv'
+        if os.path.isfile(file_name):
+            existing_tweets = set()
+            with open(file_name, 'r') as f:
+                old_csv = csv.reader(f)
+                next(old_csv)
+                for _, tweet_id, *other in old_csv:
+                    existing_tweets.add(int(tweet_id))
+
+            tweets = [tweet for tweet in tweets if tweet[1] not in existing_tweets]
+            with open(file_name, 'a') as f:
+                old_csv = csv.writer(f)
+                old_csv.writerows(tweets)
+            print(f'{file_name} already existed')
+            print(f'#tweets before = {len(existing_tweets)}')
+            print(f'#tweets after = {len(existing_tweets)+len(tweets)}\n')
+        else:
+            with open(file_name, 'w') as f:
+                dump = csv.writer(f)
+                dump.writerow(self._cols)
+                dump.writerows(tweets)
+            print(f'Saved as {file_name}')
+            print(f'#tweets = {len(tweets)}\n')
 
 if __name__ == '__main__':
     dumper = Dumper()
-    dumper.loop_over_last_n_days(5)
+    dumper.scrape_date('2018-03-15')
