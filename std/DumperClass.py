@@ -67,20 +67,21 @@ class Dumper(object):
         return self._today
 
     # METHODS
-    def scrape_last_n_days(self, n=10):
+    def scrape_n_days(self, n=10, end_date=None):
+        if end_date is None:
+            end_date = self.today
+        else:
+            end_date = self.vali_date(end_date)
+
         if n > 10:
             print('Can Only Scrape Up To 10 Days Back')
+
         for delta in range(n, -1, -1):
-            day_to_scrape = self.today - timedelta(delta)
+            day_to_scrape = end_date - timedelta(delta)
             self.scrape_date(day_to_scrape)
 
     def scrape_date(self, date_2_scrape):
-        if type(date_2_scrape) is str:
-            try:
-                date_2_scrape = datetime.strptime(date_2_scrape, '%Y-%m-%d').date()
-            except:
-                print('Bad Date Format\nPlease enter Y-M-D\ni.e, 2018-03-15')
-                exit(1)
+        date_2_scrape = self.vali_date(date_2_scrape)
         next_day = date_2_scrape + timedelta(1)
         tweets = []
         print(f'Starting to scrape {date_2_scrape.__str__()} ...')
@@ -169,6 +170,15 @@ class Dumper(object):
             print(f'Saved as {file_name}')
             print(f'#tweets = {len(tweets)}\n')
 
-if __name__ == '__main__':
-    dumper = Dumper()
-    dumper.scrape_date('2018-03-15')
+    def vali_date(self, date2vali):
+        if type(date2vali) is str:
+            try:
+                date2vali = datetime.strptime(date2vali, '%Y-%m-%d').date()
+            except:
+                print('Bad Date Format\nPlease enter Y-M-D\ni.e, 2018-03-15')
+                exit(1)
+        elif date2vali is None:
+            date2vali = self.today
+
+        return date2vali
+

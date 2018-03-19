@@ -17,7 +17,14 @@ As simple as possible
     ~~~~
     python setup.py install
     ~~~~
-2. Go for it Tiger
+2. Go get them Tiger
+ * from terminal:
+    * check all cmd option with the --help flag
+ ~~~
+ >>> python -m std
+ ~~~
+ 
+ * through ipython:
   ~~~
   >>> from std import Dumper
   >>> dump = Dumper()
@@ -48,3 +55,5 @@ dump.lang = 'en'
 TODO
 ---
 - [ ] finish readme
+- [x] add command line options
+
