@@ -140,10 +140,12 @@ class Dumper(object):
                 waiting_counter -= 1
                 sleep(1 * 60)
             except Exception as e:
-                if int(e[0]['code']) == 130:
-                    yield [], 'Twitter Over Capacity Error - waiting 1 min before trying again'
-                    sleep(1 * 60)
-                    continue
+                # if int(e[0]['code']) == 130:
+                #     yield [], 'Twitter Over Capacity Error - waiting 1 min before trying again'
+                #     sleep(1 * 60)
+                #     continue
+                if False:
+                    pass
                 else:
                     print(e)
                     break
