@@ -11,7 +11,7 @@ As simple as possible
         - [create account](https://help.twitter.com/en/create-twitter-account)  
         - [create app](http://docs.inboundnow.com/guide/create-twitter-application/)
     
-    2. Save [twitter_credentials_example.py](app/twitter_credentials_example.py) as twitter_credentials.py and fill in your true credentials.
+    2. Save [twitter_credentials_example.py](std/twitter_credentials_example.py) as twitter_credentials.py and fill in your true credentials.
     
     3. Run   
     ~~~~
@@ -19,7 +19,7 @@ As simple as possible
     ~~~~
 2. Go get them Tiger
  * from terminal:
-    * check all cmd option with the --help flag
+    * check all cmd options with the --help flag
  ~~~
  >>> python -m std
  ~~~
