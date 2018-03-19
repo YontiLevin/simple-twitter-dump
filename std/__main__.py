@@ -8,7 +8,7 @@ def user_inputs():
 
     parser = argparse.ArgumentParser(description='Scrape Twitter Easily', formatter_class=RawTextHelpFormatter)
     parser.add_argument('-l', '--lang', dest='lang', default='he', help='filter results by language code')
-    parser.add_argument('-s', '--sleep', dest='sleep_time', default='1', help='waiting time between api requests')
+    parser.add_argument('-s', '--sleep', dest='sleep_duration', default='1', help='waiting time between api requests')
     parser.add_argument('-p', '--path', dest='path2results', default='data', help='path to results folder')
     parser.add_argument('-m', '--method', dest='method', default='1',
                         help="""which scraping method to run?\n\t1 - single day\n\t2 - many_days\nenter the number!""")
@@ -28,6 +28,7 @@ if __name__ == '__main__':
     dumper.lang = inputs.lang
     dumper.data_path = inputs.path2results
     dumper.query = inputs.query
+    dumper.sleep_between_queries = inputs.sleep_duration
     if inputs.method == '1':
         dumper.scrape_date(inputs.date2scrape)
     else:

@@ -18,6 +18,7 @@ class Dumper(object):
         self._today = datetime.today().date()
         self._lang = 'he'
         self._cols = ['text', 'tweet_id', 'created_at', 'user_name', 'user_screen_name', 'used_id']
+        self._sleep_between_queries = 1
 
     @property
     def api(self):
@@ -63,6 +64,14 @@ class Dumper(object):
         self._lang = new_lang
 
     @property
+    def sleep_between_queries(self):
+        return self._sleep_between_queries
+
+    @sleep_between_queries.setter
+    def sleep_between_queries(self, sleep_duration):
+        self._sleep_between_queries = int(sleep_duration)
+
+    @property
     def today(self):
         return self._today
 
@@ -90,7 +99,7 @@ class Dumper(object):
             search_iterator.set_description(current_date)
             for tweet in full_tweets:
                 tweets.append(self.tweet_handler(tweet))
-
+            sleep(self.sleep_between_queries)
         self.dump2csv(tweets, date_2_scrape)
 
     def search_handle(self, min_date, max_date):
