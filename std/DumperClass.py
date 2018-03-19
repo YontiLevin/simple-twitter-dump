@@ -140,8 +140,13 @@ class Dumper(object):
                 waiting_counter -= 1
                 sleep(1 * 60)
             except Exception as e:
-                print(e)
-                break
+                if int(e[0]['code']) == 130:
+                    yield [], 'Twitter Over Capacity Error - waiting 1 min before trying again'
+                    sleep(1 * 60)
+                    continue
+                else:
+                    print(e)
+                    break
 
     def tweet_handler(self, tweet):
         text_start, text_stop = tweet.display_text_range
