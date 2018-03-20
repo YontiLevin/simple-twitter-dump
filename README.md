@@ -28,7 +28,7 @@ As simple as possible
   ~~~
   >>> from std import Dumper
   >>> dump = Dumper()
-  >>> dump.scrape_last_n_days(n=10)
+  >>> dump.scrape_n_days(n=10)
   or
   >>> dump.scrape_date('2018-03-15')
   ~~~
