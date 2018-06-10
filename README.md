@@ -1,4 +1,5 @@
-# Simple Twitter Dump  
+# Simple Twitter Dump 
+Easuly scrape Twitter by keyword.
 
 <p align="center">
   <img src="imgs/opera_meme.jpg" width="350" alt="Everyone gets a tweets!"/>
@@ -56,4 +57,5 @@ TODO
 ---
 - [ ] finish readme
 - [x] add command line options
+- [ ] ready to deploy docker
 
