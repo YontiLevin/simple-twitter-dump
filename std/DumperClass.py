@@ -193,7 +193,7 @@ class Dumper(object):
             except:
                 print('Bad Date Format\nPlease enter Y-M-D\ni.e, 2018-03-15')
                 exit(1)
-        else date2vali is None:
+        else:
             date2vali = self.today
 
         return date2vali
