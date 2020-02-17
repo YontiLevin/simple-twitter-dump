@@ -1,5 +1,5 @@
 from datetime import datetime
-from DumperClass import Dumper
+from std.DumperClass import Dumper
 from dynaconf import settings
 
 
