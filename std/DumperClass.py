@@ -187,7 +187,7 @@ class Dumper(object):
             print(f'#tweets = {len(tweets)}\n')
 
     def vali_date(self, date2vali):
-        if type(date2vali) is str:
+        if isinstance(date2vali, str) and len(date2vali):
             try:
                 date2vali = datetime.strptime(date2vali, '%Y-%m-%d').date()
             except:
