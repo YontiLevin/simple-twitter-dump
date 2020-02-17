@@ -1,6 +1,6 @@
 # IMPORTS
 from datetime import datetime, timedelta
-from api_setup import twitter_api, RateLimitErrorExecption
+from std.api_setup import twitter_api, RateLimitErrorExecption
 from time import sleep
 import csv
 from tqdm import tqdm
