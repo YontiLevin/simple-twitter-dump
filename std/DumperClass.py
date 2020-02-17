@@ -18,7 +18,7 @@ class Dumper(object):
         self._today = datetime.today().date()
         self._lang = inputs.language
         self._cols = ['text', 'tweet_id', 'created_at', 'user_name', 'user_screen_name', 'used_id']
-        self._sleep_between_queries = inputs.sleep_duration
+        self._sleep_between_queries = int(inputs.sleep_duration)
 
     @property
     def api(self):
@@ -66,10 +66,6 @@ class Dumper(object):
     @property
     def sleep_between_queries(self):
         return self._sleep_between_queries
-
-    @sleep_between_queries.setter
-    def sleep_between_queries(self, sleep_duration):
-        self._sleep_between_queries = int(sleep_duration)
 
     @property
     def today(self):
