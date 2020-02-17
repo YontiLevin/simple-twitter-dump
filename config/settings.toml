@@ -1,0 +1,9 @@
+[default]
+language = "he"
+sleep_duration = 1
+path2results = "data"
+scraping_method = 1
+scrape_n_days_back = 10
+query = " "
+csv_prefix = "twitter_dump"
+date2scrape = ""

@@ -1,10 +1,10 @@
 from tweepy import OAuthHandler, API, RateLimitError
-from std.twitter_credentials import *
 
 
-def twitter_api():
-    auth = OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
-    auth.set_access_token(ACCESS_TOKEN, ACCESS_SECRET)
+def twitter_api(settings):
+    settings.setenv('secret')
+    auth = OAuthHandler(settings.CONSUMER_KEY, settings.CONSUMER_SECRET)
+    auth.set_access_token(settings.ACCESS_TOKEN, settings.ACCESS_SECRET)
 
     api = API(auth)
     return api

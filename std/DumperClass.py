@@ -1,6 +1,6 @@
 # IMPORTS
 from datetime import datetime, timedelta
-from std.api_setup import twitter_api, RateLimitErrorExecption
+from api_setup import twitter_api, RateLimitErrorExecption
 from time import sleep
 import csv
 from tqdm import tqdm
@@ -9,16 +9,16 @@ from sys import exit
 
 
 class Dumper(object):
-    def __init__(self):
-        self._api = twitter_api()
-        self._data_path = 'data'
-        self._csv_name = 'twitter_dump'
-        self._query = ' '
+    def __init__(self, settings, inputs):
+        self._api = twitter_api(settings)
+        self._data_path = inputs.path2results
+        self._csv_name = inputs.csv_prefix
+        self._query = inputs.query
         self._retweets = False
         self._today = datetime.today().date()
-        self._lang = 'he'
+        self._lang = inputs.language
         self._cols = ['text', 'tweet_id', 'created_at', 'user_name', 'user_screen_name', 'used_id']
-        self._sleep_between_queries = 1
+        self._sleep_between_queries = inputs.sleep_duration
 
     @property
     def api(self):
