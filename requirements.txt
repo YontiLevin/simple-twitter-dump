@@ -22,7 +22,7 @@ parso==0.1.1
 pexpect==4.4.0
 pickleshare==0.7.4
 prompt-toolkit==1.0.15
-protobuf==3.7.1
+protobuf==3.18.3
 ptyprocess==0.5.2
 pyasn1==0.4.5
 pyasn1-modules==0.2.4
